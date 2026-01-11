@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'dart:ui'; // Glassmorphism (Blur) için gerekli
+import 'dart:ui'; // Glassmorphism (Blur) efekti için gerekli
 
 // ---------------------------------------------------------------------------
 // 1. DATA & MODELS
@@ -30,7 +30,7 @@ class AppData {
   factory AppData() => _instance;
   AppData._internal();
 
-  // Bu veriler artık Profil ekranından değiştirilebilir
+  // Kullanıcı Bilgileri
   String userName = "Sümeyye Türk";
   String userEmail = "sumeyye@gmail.com";
   String userPhone = "+90 555 123 45 67";
@@ -39,12 +39,8 @@ class AppData {
   final ValueNotifier<String> currentCountryFilterNotifier = ValueNotifier("Turkey");
 
   void initData() {
-    try {
-      final place = allPlaces.firstWhere((p) => p.id == 'eiffel_tower', orElse: () => allPlaces[0]);
-      favoritesNotifier.value = [place];
-    } catch (e) {
-      favoritesNotifier.value = [];
-    }
+    // Başlangıçta favori listesi boş veya örnek bir veriyle başlatılabilir
+    favoritesNotifier.value = [];
   }
 
   void toggleFavorite(Place place) {
@@ -60,7 +56,7 @@ class AppData {
   bool isFavorite(Place place) => favoritesNotifier.value.contains(place);
 }
 
-// --- MOCK DATA ---
+// --- GÜNCELLENMİŞ MOCK DATA ---
 
 final List<String> countries = [
   "Turkey", "France", "Italy", "South Korea",
@@ -74,7 +70,7 @@ final List<Place> allPlaces = [
       name: 'Galata Tower',
       city: 'Istanbul',
       country: 'Turkey',
-      description: 'Standing sentinel over Istanbul for centuries, the Galata Tower offers an unparalleled 360-degree panoramic view of the Golden Horn and the Bosphorus. Built by the Genoese in 1348, this medieval stone tower has served as a watchtower, a prison, and now a beloved landmark. As you ascend its historic steps, you are transported back in time, witnessing the layers of history that define Istanbul. The sunset view from the balcony is truly mesmerizing, painting the city in hues of gold and crimson.',
+      description: 'Standing sentinel over Istanbul for centuries, the Galata Tower offers an unparalleled 360-degree panoramic view of the Golden Horn and the Bosphorus. Built by the Genoese in 1348, this medieval stone tower has served as a watchtower, a prison, and now a beloved landmark. As you ascend its historic steps, you are transported back in time, witnessing the layers of history that define Istanbul. The sunset view from the balcony is truly mesmerizing.',
       imagePath: 'assets/images/galata.jpg'
   ),
   Place(
@@ -82,7 +78,7 @@ final List<Place> allPlaces = [
       name: 'Hagia Sophia',
       city: 'Istanbul',
       country: 'Turkey',
-      description: 'A masterpiece of architectural genius, Hagia Sophia stands as a testament to the grandeur of the Byzantine and Ottoman empires. Originally built as a cathedral in 537 AD, it remained the world\'s largest cathedral for nearly a thousand years. Its massive dome seems to float effortlessly above the prayer hall, adorned with stunning golden mosaics and intricate calligraphy. Walking through its imperial gates, one feels the spiritual weight of history in this UNESCO World Heritage site.',
+      description: 'A masterpiece of architectural genius, Hagia Sophia stands as a testament to the grandeur of the Byzantine and Ottoman empires. Originally built as a cathedral in 537 AD, it remained the world\'s largest cathedral for nearly a thousand years. Its massive dome seems to float effortlessly above the prayer hall, adorned with stunning golden mosaics and intricate calligraphy.',
       imagePath: 'assets/images/ayasofya.jpg'
   ),
   Place(
@@ -90,7 +86,7 @@ final List<Place> allPlaces = [
       name: 'Anıtkabir',
       city: 'Ankara',
       country: 'Turkey',
-      description: 'Anıtkabir is not just a mausoleum; it is a monumental tribute to Mustafa Kemal Atatürk, the founder of modern Turkey. Located in the heart of Ankara, its imposing architecture combines ancient Anatolian and Turkish motifs. The Road of Lions leads visitors to the Hall of Honor, where the sarcophagus resides. The surrounding Peace Park and the museum within offer a deep dive into the Turkish War of Independence, making it an emotional and inspiring journey for every visitor.',
+      description: 'Anıtkabir is not just a mausoleum; it is a monumental tribute to Mustafa Kemal Atatürk, the founder of modern Turkey. Located in the heart of Ankara, its imposing architecture combines ancient Anatolian and Turkish motifs. The Road of Lions leads visitors to the Hall of Honor, where the sarcophagus resides. The surrounding Peace Park makes it an emotional journey.',
       imagePath: 'assets/images/anitkabir.jpg'
   ),
   Place(
@@ -98,7 +94,7 @@ final List<Place> allPlaces = [
       name: 'Ankara Castle',
       city: 'Ankara',
       country: 'Turkey',
-      description: 'Perched atop a hill in the old quarter of Ankara, this historic fortification offers the best views of the capital city. The castle\'s foundations date back to ancient times, having been controlled by Romans, Byzantines, and Seljuks. Inside its walls, time seems to stand still; traditional Ottoman houses, quaint cafes, and antique shops line the narrow cobblestone streets, offering a charming contrast to the modern city below.',
+      description: 'Perched atop a hill in the old quarter of Ankara, this historic fortification offers the best views of the capital city. Inside its walls, time seems to stand still; traditional Ottoman houses, quaint cafes, and antique shops line the narrow cobblestone streets, offering a charming contrast to the modern city below.',
       imagePath: 'assets/images/ankara_castle.jpg'
   ),
   Place(
@@ -106,7 +102,7 @@ final List<Place> allPlaces = [
       name: 'Ephesus',
       city: 'Izmir',
       country: 'Turkey',
-      description: 'Ephesus is one of the most well-preserved ancient cities in the Mediterranean, a place where history comes alive. Once a bustling Roman metropolis and a major port city, it is home to the stunning Library of Celsus and the Great Theatre, where St. Paul once preached. Walking down the marble streets worn smooth by chariots and sandals over millennia, you can almost hear the whispers of the ancient philosophers and merchants who once thrived here.',
+      description: 'Ephesus is one of the most well-preserved ancient cities in the Mediterranean. Once a bustling Roman metropolis, it is home to the stunning Library of Celsus and the Great Theatre. Walking down the marble streets worn smooth by chariots and sandals over millennia, you can almost hear the whispers of history.',
       imagePath: 'assets/images/ephesus.jpg'
   ),
   Place(
@@ -114,7 +110,7 @@ final List<Place> allPlaces = [
       name: 'Clock Tower',
       city: 'Izmir',
       country: 'Turkey',
-      description: 'The elegant Clock Tower in Konak Square is the symbol of Izmir, gifted by German Emperor Wilhelm II in 1901. Its intricate Ottoman architecture, featuring four fountains at its base, makes it a popular meeting point and a perfect photo spot. Surrounded by palm trees and the sea breeze of the Aegean, the tower stands as a beautiful reminder of the city\'s cosmopolitan history and enduring charm.',
+      description: 'The elegant Clock Tower in Konak Square is the symbol of Izmir. Its intricate Ottoman architecture makes it a popular meeting point. Surrounded by palm trees and the sea breeze of the Aegean, the tower stands as a beautiful reminder of the city\'s cosmopolitan history.',
       imagePath: 'assets/images/izmir_clock.jpg'
   ),
   Place(
@@ -122,7 +118,7 @@ final List<Place> allPlaces = [
       name: 'Düden Waterfalls',
       city: 'Antalya',
       country: 'Turkey',
-      description: 'A refreshing escape from the Mediterranean heat, Düden Waterfalls is a natural wonder where water cascades dramatically into the sea. The park area offers lush greenery, cool caves to explore behind the falling water, and soothing sounds of nature. Whether you visit the Upper Düden for a picnic or watch the Lower Düden plunge directly into the Mediterranean Sea from a boat, the experience is nothing short of magical.',
+      description: 'A refreshing escape from the Mediterranean heat, Düden Waterfalls is a natural wonder where water cascades dramatically into the sea. Whether you visit the Upper Düden for a picnic or watch the Lower Düden plunge directly into the Mediterranean Sea from a boat, the experience is magical.',
       imagePath: 'assets/images/duden.jpg'
   ),
   Place(
@@ -130,7 +126,7 @@ final List<Place> allPlaces = [
       name: 'Aspendos',
       city: 'Antalya',
       country: 'Turkey',
-      description: 'Famous for having the best-preserved theatre of antiquity, Aspendos is a marvel of Roman engineering. Built in the 2nd century AD, the theatre is still used today for concerts and the annual Opera and Ballet Festival, thanks to its perfect acoustics. Climbing to the top rows offers a breathtaking view of the ancient structure against the backdrop of the Taurus Mountains, a true blend of history and nature.',
+      description: 'Famous for having the best-preserved theatre of antiquity, Aspendos is a marvel of Roman engineering. Built in the 2nd century AD, the theatre is still used today for concerts thanks to its perfect acoustics. The view of the ancient structure against the Taurus Mountains is breathtaking.',
       imagePath: 'assets/images/aspendos.jpg'
   ),
   Place(
@@ -138,7 +134,7 @@ final List<Place> allPlaces = [
       name: 'Cappadocia',
       city: 'Nevşehir',
       country: 'Turkey',
-      description: 'Cappadocia is a fairytale landscape that looks like it belongs on another planet. Famous for its "fairy chimneys," underground cities, and cave hotels, this region offers a unique travel experience. The highlight for many is waking up before dawn to watch hundreds of hot air balloons fill the sky over the surreal rock formations, creating a kaleidoscope of colors against the rising sun.',
+      description: 'Cappadocia is a fairytale landscape of "fairy chimneys" and cave hotels. The highlight for many is waking up before dawn to watch hundreds of hot air balloons fill the sky over the surreal rock formations, creating a kaleidoscope of colors against the rising sun.',
       imagePath: 'assets/images/kapadokya.jpg'
   ),
   Place(
@@ -146,24 +142,58 @@ final List<Place> allPlaces = [
       name: 'Goreme Open Air',
       city: 'Nevşehir',
       country: 'Turkey',
-      description: 'A UNESCO World Heritage site, the Goreme Open Air Museum is a vast monastic complex carved entirely out of rock. It contains some of the finest rock-cut churches, with beautiful frescoes (wall paintings) that retain their original freshness. Exploring the refectories, kitchens, and chapels carved by early Christians offers a profound insight into the region\'s religious history and artistic heritage.',
+      description: 'A UNESCO World Heritage site, containing some of the finest rock-cut churches with beautiful frescoes. Exploring the refectories and chapels carved by early Christians offers a profound insight into the region\'s religious history.',
       imagePath: 'assets/images/goreme.jpg'
   ),
+  // --- MARDİN (GÜNCELLENDİ) ---
   Place(
       id: 'tr_mar_1',
       name: 'Mor Gabriel',
       city: 'Mardin',
       country: 'Turkey',
-      description: 'Founded in 397 AD, Mor Gabriel is the oldest surviving Syriac Orthodox monastery in the world. Located on the historic Tur Abdin plateau, its golden stone architecture blends seamlessly with the arid landscape. The monastery is a living center of faith, with monks still chanting in ancient Aramaic, the language of Jesus. The intricate mosaics, bell towers, and peaceful courtyards offer a spiritual sanctuary and a glimpse into early Christianity.',
+      description: 'Founded in 397 AD, Mor Gabriel is the oldest surviving Syriac Orthodox monastery in the world. Located on the historic Tur Abdin plateau, its golden stone architecture blends seamlessly with the arid landscape. The monastery is a living center of faith with intricate mosaics and peaceful courtyards.',
       imagePath: 'assets/images/mor_gabriel.jpg'
   ),
+  Place(
+      id: 'tr_mar_2',
+      name: 'Zinciriye Medrese',
+      city: 'Mardin',
+      country: 'Turkey',
+      description: 'Built in 1385, this stunning Islamic theological school sits just below the castle. Its fluted domes and grand portal are masterpieces of Artuqid architecture. The view from the rooftop over the endless Mesopotamian plains is absolutely breathtaking, especially at sunset.',
+      imagePath: 'assets/images/zinciriye.jpg'
+  ),
+  Place(
+      id: 'tr_mar_3',
+      name: 'Dara Ruins',
+      city: 'Mardin',
+      country: 'Turkey',
+      description: 'Known as the "Ephesus of the East," Dara is a spectacular ancient Roman fortress city carved into rock. The massive underground cisterns, rock-cut tombs, and agora are awe-inspiring and offer a mysterious journey into the past.',
+      imagePath: 'assets/images/dara_ruins.jpg'
+  ),
+  // --- TRABZON (GÜNCELLENDİ) ---
   Place(
       id: 'tr_tra_1',
       name: 'Uzungöl',
       city: 'Trabzon',
       country: 'Turkey',
-      description: 'Nestled between towering mountains covered in misty spruce forests, Uzungöl (Long Lake) is the jewel of the Black Sea region. The mosque with its twin minarets reflected in the calm waters creates a postcard-perfect scene. Visitors can hike the surrounding trails, enjoy traditional breakfast with "muhlama," or simply breathe in the crisp, clean mountain air. It is a haven for nature lovers and those seeking tranquility.',
+      description: 'Nestled between towering mountains covered in misty spruce forests, Uzungöl (Long Lake) is the jewel of the Black Sea. The mosque with its twin minarets reflected in the calm waters creates a postcard-perfect scene. It is a haven for nature lovers.',
       imagePath: 'assets/images/uzungol.jpg'
+  ),
+  Place(
+      id: 'tr_tra_2',
+      name: 'Sumela Monastery',
+      city: 'Trabzon',
+      country: 'Turkey',
+      description: 'Clinging to a sheer cliff face 1,200 meters above sea level, Sumela is a Greek Orthodox monastery dedicated to the Virgin Mary. Reaching it requires a walk through a lush forest, revealing a structure that seems to defy gravity. The ancient frescoes inside are hauntingly beautiful.',
+      imagePath: 'assets/images/sumela.jpg'
+  ),
+  Place(
+      id: 'tr_tra_3',
+      name: 'Atatürk Pavilion',
+      city: 'Trabzon',
+      country: 'Turkey',
+      description: 'A beautiful example of early 20th-century architecture, this white mansion is set within fragrant pine forests. It was a gift to Atatürk and houses historical artifacts. The manicured gardens are perfect for a peaceful stroll overlooking the city.',
+      imagePath: 'assets/images/ataturk_kosku.jpg'
   ),
 
   // ================= FRANCE =================
@@ -172,7 +202,7 @@ final List<Place> allPlaces = [
       name: 'Eiffel Tower',
       city: 'Paris',
       country: 'France',
-      description: 'The Iron Lady of Paris needs no introduction. Built for the 1889 World\'s Fair, it was initially criticized but has since become the global symbol of romance and France itself. Whether you picnic on the Champ de Mars or take the elevator to the summit for a breathtaking view of the City of Lights, the experience is unforgettable. At night, the tower sparkles with thousands of lights, adding magic to the Parisian skyline.',
+      description: 'The Iron Lady of Paris needs no introduction. Built for the 1889 World\'s Fair, it has become the global symbol of romance. Whether you picnic on the Champ de Mars or take the elevator to the summit, the experience is unforgettable.',
       imagePath: 'assets/images/eiffel.jpg'
   ),
   Place(
@@ -180,7 +210,7 @@ final List<Place> allPlaces = [
       name: 'Louvre Museum',
       city: 'Paris',
       country: 'France',
-      description: 'Home to the Mona Lisa and the Venus de Milo, the Louvre is the world\'s largest art museum and a historic monument in Paris. Entering through the iconic glass pyramid, visitors descend into a vast palace that houses over 35,000 works of art. From ancient Egyptian antiquities to Renaissance masterpieces, the Louvre offers an endless journey through human creativity and history.',
+      description: 'Home to the Mona Lisa, the Louvre is the world\'s largest art museum. Entering through the iconic glass pyramid, visitors descend into a vast palace that houses over 35,000 works of art.',
       imagePath: 'assets/images/louvre.jpg'
   ),
   Place(
@@ -188,7 +218,7 @@ final List<Place> allPlaces = [
       name: 'Promenade',
       city: 'Nice',
       country: 'France',
-      description: 'The Promenade des Anglais is the most famous stretch of seafront in Nice, hugging the curve of the Baie des Anges. Lined with palm trees and legendary hotels like the Negresco, it is the perfect place for a stroll, a jog, or simply gazing at the azure blue waters of the Mediterranean. It captures the essence of the French Riviera lifestyle—relaxed, elegant, and sun-soaked.',
+      description: 'The Promenade des Anglais is the most famous stretch of seafront in Nice. Lined with palm trees and legendary hotels, it captures the essence of the French Riviera lifestyle.',
       imagePath: 'assets/images/nice_promenade.jpg'
   ),
   Place(
@@ -196,7 +226,7 @@ final List<Place> allPlaces = [
       name: 'Castle Hill',
       city: 'Nice',
       country: 'France',
-      description: 'For the best views in Nice, a trip up to Castle Hill (Colline du Château) is essential. Although the castle itself was destroyed centuries ago, the park remains a lush oasis with a stunning man-made waterfall. From the observation decks, you can see the vibrant red rooftops of Old Nice, the sparkling sea, and the sweeping curve of the coastline.',
+      description: 'For the best views in Nice, a trip up to Castle Hill is essential. It offers a stunning man-made waterfall and panoramic views of the red rooftops and azure sea.',
       imagePath: 'assets/images/nice_castle.jpg'
   ),
   Place(
@@ -204,7 +234,7 @@ final List<Place> allPlaces = [
       name: 'Basilica Notre-Dame',
       city: 'Lyon',
       country: 'France',
-      description: 'Perched on the Fourvière hill, this magnificent basilica watches over Lyon like a guardian. Its architecture is a unique blend of Romanesque and Byzantine styles, featuring intricate mosaics and shimmering gold leaf interiors. The view from its terrace is panoramic, encompassing the two rivers, the old town, and on clear days, even the distant Alps.',
+      description: 'Perched on the Fourvière hill, this basilica watches over Lyon. Its architecture is a unique blend of styles featuring intricate mosaics. The view from its terrace is panoramic.',
       imagePath: 'assets/images/lyon_basilica.jpg'
   ),
   Place(
@@ -212,7 +242,7 @@ final List<Place> allPlaces = [
       name: 'Vieux Lyon',
       city: 'Lyon',
       country: 'France',
-      description: 'Vieux Lyon is one of the largest Renaissance districts in Europe. Its charm lies in its narrow cobblestone streets and hidden passageways known as "traboules," originally used by silk merchants. Today, the area is vibrant with traditional "bouchon" restaurants serving local specialties, artisan shops, and a lively atmosphere that transports you back to the 16th century.',
+      description: 'Vieux Lyon is one of the largest Renaissance districts in Europe. Its charm lies in its narrow cobblestone streets and hidden passageways known as "traboules."',
       imagePath: 'assets/images/vieux_lyon.jpg'
   ),
   Place(
@@ -220,7 +250,7 @@ final List<Place> allPlaces = [
       name: 'Place de la Bourse',
       city: 'Bordeaux',
       country: 'France',
-      description: 'A symbol of Bordeaux\'s elegance, this royal square was built in the 18th century. Its most famous feature is the "Miroir d\'eau" (Water Mirror), the world\'s largest reflecting pool. The thin layer of water on the granite slab creates a magical reflection of the majestic buildings, and on hot days, the mist provides a playful and refreshing experience for visitors of all ages.',
+      description: 'A symbol of Bordeaux\'s elegance. Its most famous feature is the "Water Mirror," the world\'s largest reflecting pool, creating a magical reflection of the buildings.',
       imagePath: 'assets/images/bordeaux_bourse.jpg'
   ),
   Place(
@@ -228,7 +258,7 @@ final List<Place> allPlaces = [
       name: 'Cité du Vin',
       city: 'Bordeaux',
       country: 'France',
-      description: 'This ultra-modern museum is a tribute to the heritage of wine. Its bold, curved architecture resembles the swirl of wine in a glass. Inside, interactive exhibits take you on a sensory journey through the history and culture of winemaking across the globe. The visit concludes at the belvedere on the top floor, where you can taste world-class wines while enjoying a 360-degree view of Bordeaux.',
+      description: 'This ultra-modern museum is a tribute to wine. Its bold architecture resembles the swirl of wine in a glass. The visit concludes with a tasting and a 360-degree view.',
       imagePath: 'assets/images/bordeaux_wine.jpg'
   ),
   Place(
@@ -236,7 +266,7 @@ final List<Place> allPlaces = [
       name: 'Old Port',
       city: 'Marseille',
       country: 'France',
-      description: 'The Vieux-Port (Old Port) has been the beating heart of Marseille for over 2,600 years. Surrounded by two massive forts, it is filled with yachts, fishing boats, and the lively fish market in the mornings. It is the perfect place to start exploring the city, enjoy a bouillabaisse at a waterfront restaurant, or catch a ferry to the nearby Calanques or Château d\'If.',
+      description: 'The Vieux-Port has been the beating heart of Marseille for over 2,600 years. Filled with yachts and a lively fish market, it is the perfect place to start exploring.',
       imagePath: 'assets/images/marseille_port.jpg'
   ),
   Place(
@@ -244,7 +274,7 @@ final List<Place> allPlaces = [
       name: 'Notre-Dame',
       city: 'Marseille',
       country: 'France',
-      description: 'Known locally as "La Bonne Mère" (The Good Mother), this basilica sits on the highest point in Marseille. Its striking striped interior and maritime votive offerings reflect the city\'s deep connection to the sea. The climb to the top is rewarded with the most spectacular panorama of the city, the port, and the islands scattered in the Mediterranean Sea.',
+      description: 'Known as "The Good Mother," this basilica sits on the highest point in Marseille. It offers the most spectacular panorama of the city and the Mediterranean Sea.',
       imagePath: 'assets/images/marseille_basilica.jpg'
   ),
 
@@ -254,7 +284,7 @@ final List<Place> allPlaces = [
       name: 'Colosseum',
       city: 'Rome',
       country: 'Italy',
-      description: 'The largest amphitheatre ever built, the Colosseum is an enduring symbol of Imperial Rome. Imagine the roar of 50,000 spectators as gladiators clashed and wild beast hunts took place in this massive stone arena. Despite centuries of damage from earthquakes and stone-robbers, it remains an awe-inspiring engineering marvel that lets you walk in the footsteps of ancient Romans.',
+      description: 'The largest amphitheatre ever built, a symbol of Imperial Rome where gladiators once fought. An awe-inspiring engineering marvel that lets you walk in the footsteps of history.',
       imagePath: 'assets/images/colosseum.jpg'
   ),
   Place(
@@ -262,7 +292,7 @@ final List<Place> allPlaces = [
       name: 'Trevi Fountain',
       city: 'Rome',
       country: 'Italy',
-      description: 'A masterpiece of Baroque art, the Trevi Fountain is much more than just a water feature. Dominated by the statue of Neptune, god of the sea, the fountain creates a theatrical atmosphere with its rushing waters and intricate sculptures. Legend says that if you throw a coin into the fountain with your right hand over your left shoulder, you will one day return to Rome.',
+      description: 'A masterpiece of Baroque art. Legend says that if you throw a coin into the fountain with your right hand over your left shoulder, you will one day return to Rome.',
       imagePath: 'assets/images/trevi.jpg'
   ),
   Place(
@@ -270,7 +300,7 @@ final List<Place> allPlaces = [
       name: 'Grand Canal',
       city: 'Venice',
       country: 'Italy',
-      description: 'The main artery of Venice, the Grand Canal is a shimmering waterway lined with magnificent Renaissance and Gothic palaces. Taking a Vaporetto (water bus) or a romantic gondola ride along the canal offers the best vantage point to admire the city\'s floating architecture. As the sun sets, the reflections on the water create a magical, almost painting-like atmosphere.',
+      description: 'The main artery of Venice, lined with magnificent Renaissance palaces. Taking a Vaporetto or gondola ride here is a magical experience.',
       imagePath: 'assets/images/venice_canal.jpg'
   ),
   Place(
@@ -278,7 +308,7 @@ final List<Place> allPlaces = [
       name: 'St. Mark\'s Square',
       city: 'Venice',
       country: 'Italy',
-      description: 'Napoleon famously called Piazza San Marco "the drawing room of Europe." It is the social, religious, and political center of Venice, dominated by the splendid St. Mark\'s Basilica and the soaring Campanile bell tower. Whether you are sipping coffee at the historic Caffè Florian or feeding the pigeons, the square\'s vibrant energy and architectural beauty are captivating.',
+      description: 'The "drawing room of Europe." Dominated by the basilica and bell tower, the square\'s vibrant energy and architectural beauty are captivating.',
       imagePath: 'assets/images/venice_square.jpg'
   ),
   Place(
@@ -286,7 +316,7 @@ final List<Place> allPlaces = [
       name: 'Florence Cathedral',
       city: 'Florence',
       country: 'Italy',
-      description: 'The Duomo, with its red-tiled dome designed by Brunelleschi, is the icon of Florence. Its exterior is a dazzling mix of pink, white, and green marble, while the interior is vast and solemn. Climbing the 463 steps to the top of the dome is a challenge, but the reward is an unmatched view of the Tuscan capital and a close-up look at the spectacular frescoes of the Last Judgment.',
+      description: 'The Duomo is the icon of Florence. Its exterior is a mix of pink, white, and green marble. Climbing the dome offers an unmatched view of the Tuscan capital.',
       imagePath: 'assets/images/florence_duomo.jpg'
   ),
   Place(
@@ -294,7 +324,7 @@ final List<Place> allPlaces = [
       name: 'Ponte Vecchio',
       city: 'Florence',
       country: 'Italy',
-      description: 'Spanning the Arno River, the Ponte Vecchio is a medieval stone bridge famous for the shops built along it. Originally occupied by butchers, these shops now house high-end jewelers and art dealers. It is the only bridge in Florence that survived World War II. Walking across it at sunset, with the golden light reflecting off the river, is one of the most romantic experiences in Italy.',
+      description: 'A medieval stone bridge famous for the jewelry shops built along it. Walking across it at sunset is one of the most romantic experiences in Italy.',
       imagePath: 'assets/images/ponte_vecchio.jpg'
   ),
   Place(
@@ -302,7 +332,7 @@ final List<Place> allPlaces = [
       name: 'Duomo di Milano',
       city: 'Milan',
       country: 'Italy',
-      description: 'This massive Gothic cathedral took nearly six centuries to complete and is the largest church in Italy. Adorned with thousands of statues and spires, its white marble façade is simply breathtaking. Visitors can take an elevator to the roof terraces to walk among the spires and enjoy a unique view of Milan\'s skyline, sometimes stretching as far as the Alps.',
+      description: 'A massive Gothic cathedral with thousands of statues. Visitors can walk on the roof terraces among the spires for a unique view of Milan.',
       imagePath: 'assets/images/milan_duomo.jpg'
   ),
   Place(
@@ -310,7 +340,7 @@ final List<Place> allPlaces = [
       name: 'Galleria Emanuele',
       city: 'Milan',
       country: 'Italy',
-      description: 'Often called the world\'s oldest shopping mall, the Galleria Vittorio Emanuele II is a celebration of 19th-century luxury. Its double arcade is covered by a soaring glass and iron dome, connecting the Duomo to La Scala opera house. With its mosaic floors and luxury boutiques like Prada and Versace, it is a magnificent place to window shop and experience Milanese elegance.',
+      description: 'One of the world\'s oldest shopping malls, celebrating luxury with its glass dome and mosaic floors. A magnificent place to experience Milanese elegance.',
       imagePath: 'assets/images/milan_galleria.jpg'
   ),
   Place(
@@ -318,7 +348,7 @@ final List<Place> allPlaces = [
       name: 'Pompeii',
       city: 'Naples',
       country: 'Italy',
-      description: 'Frozen in time by the eruption of Mount Vesuvius in 79 AD, Pompeii offers a hauntingly detailed look at Roman life. Walking its preserved streets, you can enter homes, bakeries, and baths that look as if they were just abandoned. The plaster casts of the victims remind visitors of the human tragedy, making it a deeply moving historical site.',
+      description: 'Frozen in time by Mount Vesuvius, Pompeii offers a hauntingly detailed look at Roman life. Walking its preserved streets is a deeply moving experience.',
       imagePath: 'assets/images/pompeii.jpg'
   ),
   Place(
@@ -326,7 +356,7 @@ final List<Place> allPlaces = [
       name: 'Mount Vesuvius',
       city: 'Naples',
       country: 'Italy',
-      description: 'Looming over the Bay of Naples, Mount Vesuvius is the only active volcano on the European mainland. A hike to the rim of the crater offers a raw look at nature\'s power, with steam vents still releasing gases. The view from the top is spectacular, sweeping across the bay, the city of Naples, and the ruins of Pompeii below.',
+      description: 'The only active volcano on the European mainland. A hike to the rim offers a raw look at nature\'s power and spectacular views of the bay.',
       imagePath: 'assets/images/vesuvius.jpg'
   ),
 
@@ -336,7 +366,7 @@ final List<Place> allPlaces = [
       name: 'Gyeongbokgung',
       city: 'Seoul',
       country: 'South Korea',
-      description: 'Built in 1395, Gyeongbokgung was the main royal palace of the Joseon Dynasty. With Mount Bugaksan as a dramatic backdrop, the palace complex is a stunning example of traditional Korean architecture. The Changing of the Guard ceremony at the main gate is a colorful display of history. Visitors often rent Hanbok (traditional dress) to wander the expansive grounds and feel like royalty.',
+      description: 'The main royal palace of the Joseon Dynasty. Visitors often rent Hanbok to wander the grounds and witness the colorful Changing of the Guard ceremony.',
       imagePath: 'assets/images/gyeongbokgung.jpg'
   ),
   Place(
@@ -344,7 +374,7 @@ final List<Place> allPlaces = [
       name: 'N Seoul Tower',
       city: 'Seoul',
       country: 'South Korea',
-      description: 'Rising from the top of Namsan Mountain, the N Seoul Tower is an iconic landmark visible from everywhere in the city. It is a romantic hotspot, famous for its "Locks of Love" where couples attach padlocks to the fences. The observation deck offers the best panoramic views of Seoul\'s sprawling cityscape, especially dazzling when lit up at night.',
+      description: 'An iconic landmark on Namsan Mountain. Famous for "Locks of Love" and offering the best panoramic views of Seoul\'s cityscape.',
       imagePath: 'assets/images/seoul_tower.jpg'
   ),
   Place(
@@ -352,7 +382,7 @@ final List<Place> allPlaces = [
       name: 'Gamcheon Village',
       city: 'Busan',
       country: 'South Korea',
-      description: 'Known as the "Machu Picchu of Busan," this hillside village is a vibrant maze of pastel-colored houses, narrow alleys, and artistic murals. Once a shantytown for war refugees, it has transformed into a creative cultural hub. Exploring its winding paths reveals quirky cafes, art installations, and stunning views of the harbor below.',
+      description: 'The "Machu Picchu of Busan," a hillside village of pastel-colored houses and artistic murals. A vibrant maze offering stunning harbor views.',
       imagePath: 'assets/images/gamcheon.jpg'
   ),
   Place(
@@ -360,7 +390,7 @@ final List<Place> allPlaces = [
       name: 'Haeundae Beach',
       city: 'Busan',
       country: 'South Korea',
-      description: 'Haeundae is South Korea\'s most famous beach, bustling with energy year-round. In summer, the shoreline is covered in colorful parasols, while winter invites peaceful walks along the sand. The area is lined with luxury hotels, modern skyscrapers, and seafood markets, creating a unique blend of urban excitement and seaside relaxation.',
+      description: 'Korea\'s most famous beach, bustling with energy, luxury hotels, and festivals. A unique blend of urban excitement and seaside relaxation.',
       imagePath: 'assets/images/haeundae.jpg'
   ),
   Place(
@@ -368,7 +398,7 @@ final List<Place> allPlaces = [
       name: 'Seongsan Ilchulbong',
       city: 'Jeju',
       country: 'South Korea',
-      description: 'Also known as "Sunrise Peak," this majestic tuff cone rose from the sea in a volcanic eruption over 5,000 years ago. It is a UNESCO World Heritage site and a must-visit for hikers. The climb to the top is steep but rewarding, offering a breathtaking view of the huge crater and the surrounding ocean, especially at sunrise.',
+      description: 'Known as "Sunrise Peak," a volcanic tuff cone rising from the sea. The steep climb rewards hikers with breathtaking crater and ocean views.',
       imagePath: 'assets/images/jeju_sunrise.jpg'
   ),
   Place(
@@ -376,7 +406,7 @@ final List<Place> allPlaces = [
       name: 'Jeongbang Falls',
       city: 'Jeju',
       country: 'South Korea',
-      description: 'Jeongbang Waterfall is unique as it is one of the few waterfalls in Asia that falls directly into the ocean. The sight of the water crashing onto the black volcanic rocks before merging with the blue sea is spectacular. Legend says a holy dragon lives underneath it, adding a touch of myth to its natural beauty.',
+      description: 'One of the few waterfalls in Asia that falls directly into the ocean. The sight of water crashing onto black volcanic rocks is spectacular.',
       imagePath: 'assets/images/jeju_waterfall.jpg'
   ),
   Place(
@@ -384,7 +414,7 @@ final List<Place> allPlaces = [
       name: 'Incheon Park',
       city: 'Incheon',
       country: 'South Korea',
-      description: 'Incheon Grand Park is a massive urban oasis, perfect for escaping the city bustle. Surrounded by mountains, it features a botanical garden, a lake, and a children\'s zoo. It is especially beautiful in spring when the cherry blossoms form a pink tunnel, and in autumn when the maple leaves turn fiery red.',
+      description: 'A massive urban oasis with a botanical garden and zoo. Especially beautiful during the cherry blossom season and autumn.',
       imagePath: 'assets/images/incheon_park.jpg'
   ),
   Place(
@@ -392,7 +422,7 @@ final List<Place> allPlaces = [
       name: 'Chinatown',
       city: 'Incheon',
       country: 'South Korea',
-      description: 'As Korea\'s only official Chinatown, this district is a vibrant explosion of red lanterns and golden dragons. It is the birthplace of Jajangmyeon (black bean noodles), a beloved Korean-Chinese dish. The streets are filled with the aroma of street food, mooncakes, and dumplings, offering a flavorful cultural experience.',
+      description: 'Korea\'s only official Chinatown. A vibrant explosion of red lanterns and street food, and the birthplace of Jajangmyeon.',
       imagePath: 'assets/images/incheon_chinatown.jpg'
   ),
   Place(
@@ -400,7 +430,7 @@ final List<Place> allPlaces = [
       name: 'Bulguksa Temple',
       city: 'Gyeongju',
       country: 'South Korea',
-      description: 'Bulguksa is a masterpiece of Buddhist art in the Far East and a UNESCO World Heritage site. Built in the 8th century, it represents the utopian ideal of the Buddha land. Its stone terraces, pagodas, and wooden halls blend harmoniously with the surrounding nature. It is a place of profound peace and spiritual significance.',
+      description: 'A masterpiece of Buddhist art and UNESCO site. Represents the utopian ideal of the Buddha land with its harmonious stone architecture.',
       imagePath: 'assets/images/bulguksa.jpg'
   ),
   Place(
@@ -408,7 +438,7 @@ final List<Place> allPlaces = [
       name: 'Donggung Palace',
       city: 'Gyeongju',
       country: 'South Korea',
-      description: 'Part of the ancient Silla kingdom, Donggung Palace and Wolji Pond were used for royal banquets. The site is most spectacular at night when the pavilions are illuminated, casting a perfect golden reflection on the tranquil water. It offers a romantic and serene glimpse into the lavish lifestyle of ancient Korean royalty.',
+      description: 'Ancient royal banquet site. Most spectacular at night when the illuminated pavilions reflect perfectly on the tranquil Wolji Pond.',
       imagePath: 'assets/images/donggung.jpg'
   ),
 
@@ -418,7 +448,7 @@ final List<Place> allPlaces = [
       name: 'Grand Place',
       city: 'Brussels',
       country: 'Belgium',
-      description: 'Victor Hugo called it the most beautiful square in the world, and it is easy to see why. The Grand Place is surrounded by opulent guildhalls with gold detailing and the magnificent Gothic Town Hall. Every two years, the square is covered with a massive flower carpet of begonias, creating a stunning display of color and fragrance.',
+      description: 'Considered the most beautiful square in the world, surrounded by opulent guildhalls. Famous for its biennial flower carpet.',
       imagePath: 'assets/images/grand_place.jpg'
   ),
   Place(
@@ -426,7 +456,7 @@ final List<Place> allPlaces = [
       name: 'Atomium',
       city: 'Brussels',
       country: 'Belgium',
-      description: 'Built for the 1958 World\'s Fair, the Atomium is a bizarre yet fascinating structure representing an iron crystal magnified 165 billion times. Visitors can explore the spheres via escalators and enjoy a futuristic exhibition inside. The top sphere offers a panoramic view of Brussels and, on a clear day, as far as Antwerp.',
+      description: 'A futuristic structure representing an iron crystal. Visitors can explore the spheres and enjoy panoramic views of Brussels.',
       imagePath: 'assets/images/atomium.jpg'
   ),
   Place(
@@ -434,7 +464,7 @@ final List<Place> allPlaces = [
       name: 'Belfry of Bruges',
       city: 'Brugge',
       country: 'Belgium',
-      description: 'Standing 83 meters tall, the medieval Belfry dominates the market square of Bruges. Climbing its 366 narrow steps is a workout, but the view of the gabled rooftops and canals is worth it. The tower houses a carillon with 47 bells, which still chime regularly, filling the city with historic melodies.',
+      description: 'A medieval bell tower dominating the market square. Climbing it offers fantastic views of the gabled rooftops and canals.',
       imagePath: 'assets/images/brugge_belfry.jpg'
   ),
   Place(
@@ -442,7 +472,7 @@ final List<Place> allPlaces = [
       name: 'Lake of Love',
       city: 'Brugge',
       country: 'Belgium',
-      description: 'Minnewater, or the "Lake of Love," is a calm oasis in the south of Bruges. Surrounded by weeping willows and a park, it is home to the city\'s famous swans. According to legend, if you walk over the bridge with your partner, your love will become eternal. It is the most romantic spot in a city already known for romance.',
+      description: 'Minnewater is a romantic oasis home to swans. Legend says walking the bridge with a partner ensures eternal love.',
       imagePath: 'assets/images/brugge_lake.jpg'
   ),
   Place(
@@ -450,7 +480,7 @@ final List<Place> allPlaces = [
       name: 'Gravensteen',
       city: 'Ghent',
       country: 'Belgium',
-      description: 'The "Castle of the Counts" is a formidable medieval fortress right in the city center. With its moat, turrets, and dark torture museum, it looks like something straight out of a knight\'s tale. Exploring its ramparts offers a gritty look at history and fantastic views of Ghent\'s skyline.',
+      description: 'The "Castle of the Counts," a formidable medieval fortress with a moat and torture museum located in the city center.',
       imagePath: 'assets/images/gravensteen.jpg'
   ),
   Place(
@@ -458,7 +488,7 @@ final List<Place> allPlaces = [
       name: 'Saint Bavo',
       city: 'Ghent',
       country: 'Belgium',
-      description: 'This majestic cathedral is not just an architectural marvel but also an art treasury. It houses the "Adoration of the Mystic Lamb," one of the most influential paintings in art history. The cathedral\'s interior is a stunning mix of Romanesque, Gothic, and Baroque styles, reflecting the city\'s wealthy past.',
+      description: 'A majestic cathedral housing the "Adoration of the Mystic Lamb," one of the most influential paintings in art history.',
       imagePath: 'assets/images/saint_bavo.jpg'
   ),
 
@@ -468,7 +498,7 @@ final List<Place> allPlaces = [
       name: 'Rijksmuseum',
       city: 'Amsterdam',
       country: 'Netherlands',
-      description: 'The Rijksmuseum is the crown jewel of Dutch museums, dedicated to the arts and history of the Netherlands. It houses masterpieces like Rembrandt\'s "The Night Watch" and Vermeer\'s "The Milkmaid." The building itself, designed by Pierre Cuypers, is a work of art, combining Gothic and Renaissance elements. It tells the story of 800 years of Dutch history.',
+      description: 'The crown jewel of Dutch museums, housing masterpieces by Rembrandt and Vermeer in a stunning Gothic-Renaissance building.',
       imagePath: 'assets/images/rijksmuseum.jpg'
   ),
   Place(
@@ -476,7 +506,7 @@ final List<Place> allPlaces = [
       name: 'Canal Ring',
       city: 'Amsterdam',
       country: 'Netherlands',
-      description: 'Amsterdam\'s 17th-century canal ring is a UNESCO World Heritage site and the defining feature of the city. Taking a boat cruise along the Herengracht, Keizersgracht, and Prinsengracht offers a unique perspective of the iconic tall, narrow canal houses. At night, the illuminated bridges create a magical reflection on the water.',
+      description: 'The defining feature of the city. A boat cruise offers unique views of the tall, narrow canal houses and illuminated bridges.',
       imagePath: 'assets/images/amsterdam_canals.jpg'
   ),
   Place(
@@ -484,7 +514,7 @@ final List<Place> allPlaces = [
       name: 'Cube Houses',
       city: 'Rotterdam',
       country: 'Netherlands',
-      description: 'Rotterdam is known for its modern architecture, and the Cube Houses are the most striking example. Designed by Piet Blom, these yellow, tilted cubes are actually residential homes meant to represent trees in a forest. Visitors can enter the "Show Cube" to experience what life is like inside a house with no straight walls.',
+      description: 'Striking yellow, tilted cube homes designed by Piet Blom. A unique example of modern architecture representing trees in a forest.',
       imagePath: 'assets/images/cube_houses.jpg'
   ),
   Place(
@@ -492,7 +522,7 @@ final List<Place> allPlaces = [
       name: 'Erasmus Bridge',
       city: 'Rotterdam',
       country: 'Netherlands',
-      description: 'Nicknamed "The Swan" due to its graceful shape, the Erasmus Bridge is the icon of Rotterdam. This cable-stayed bridge connects the north and south parts of the city. Walking or cycling across it offers fantastic views of the modern skyline and the busy harbor, showcasing Rotterdam\'s innovative spirit.',
+      description: 'Nicknamed "The Swan," this graceful bridge connects the city and showcases Rotterdam\'s innovative spirit.',
       imagePath: 'assets/images/erasmus_bridge.jpg'
   ),
 
@@ -502,7 +532,7 @@ final List<Place> allPlaces = [
       name: 'Senso-ji',
       city: 'Tokyo',
       country: 'Japan',
-      description: 'Located in the historic Asakusa district, Senso-ji is Tokyo\'s oldest and most significant Buddhist temple. Visitors enter through the Thunder Gate (Kaminarimon) with its massive red lantern. The approach is lined with Nakamise-dori, a shopping street selling traditional snacks and souvenirs. The smell of incense and the vibrant red architecture offer a glimpse into old Tokyo.',
+      description: 'Tokyo\'s oldest temple, located in Asakusa. Famous for its giant red lantern and the vibrant Nakamise shopping street.',
       imagePath: 'assets/images/sensoji.jpg'
   ),
   Place(
@@ -510,7 +540,7 @@ final List<Place> allPlaces = [
       name: 'Shibuya Crossing',
       city: 'Tokyo',
       country: 'Japan',
-      description: 'Often called the busiest intersection in the world, Shibuya Crossing is the beating heart of modern Tokyo. When the lights turn red, thousands of pedestrians flood the street from all directions in a chaotic yet organized rhythm. Watching this spectacle from a nearby cafe or joining the crowd is an electrifying experience that defines Tokyo\'s energy.',
+      description: 'The busiest intersection in the world. An electrifying spectacle of organized chaos that defines Tokyo\'s modern energy.',
       imagePath: 'assets/images/shibuya.jpg'
   ),
   Place(
@@ -518,7 +548,7 @@ final List<Place> allPlaces = [
       name: 'Fushimi Inari',
       city: 'Kyoto',
       country: 'Japan',
-      description: 'Famous for its thousands of vermilion torii gates straddling a network of trails, Fushimi Inari is dedicated to the Shinto god of rice. The hike up the sacred Mount Inari is a mystical experience, passing smaller shrines and fox statues along the way. It is one of the most photographed and spiritually charged locations in Japan.',
+      description: 'Famous for its thousands of vermilion torii gates straddling trails up the sacred mountain. A mystical and iconic experience.',
       imagePath: 'assets/images/kyoto_inari.jpg'
   ),
   Place(
@@ -526,7 +556,7 @@ final List<Place> allPlaces = [
       name: 'Kinkaku-ji',
       city: 'Kyoto',
       country: 'Japan',
-      description: 'The Golden Pavilion, or Kinkaku-ji, is a Zen temple covered in gold leaf that shimmers beautifully in the reflection of the surrounding pond. Each floor represents a different style of architecture. Surrounded by a pristine Japanese stroll garden, it is a symbol of harmony between nature and human creation, offering a breathtaking sight in any season.',
+      description: 'The Golden Pavilion, covered in gold leaf and reflecting in the pond. A symbol of harmony between nature and architecture.',
       imagePath: 'assets/images/kinkakuji.jpg'
   ),
   Place(
@@ -534,7 +564,7 @@ final List<Place> allPlaces = [
       name: 'Osaka Castle',
       city: 'Osaka',
       country: 'Japan',
-      description: 'Osaka Castle is a powerful symbol of Japan\'s history, playing a key role in the unification of the country in the 16th century. The main tower is surrounded by impressive stone walls and moats. Inside, a museum details the castle\'s history, while the surrounding park is a favorite spot for cherry blossom viewing in spring.',
+      description: 'A powerful symbol of history with impressive stone walls and a museum inside. The park is beautiful during cherry blossom season.',
       imagePath: 'assets/images/osaka_castle.jpg'
   ),
   Place(
@@ -542,17 +572,17 @@ final List<Place> allPlaces = [
       name: 'Dotonbori',
       city: 'Osaka',
       country: 'Japan',
-      description: 'Dotonbori is the gastronomic and entertainment heart of Osaka. Famous for its neon lights, including the "Glico Man" sign, and giant mechanical crabs, it is a feast for the senses. It is the best place to try Osaka\'s soul food like Takoyaki (octopus balls) and Okonomiyaki, embracing the local motto of "kuidaore" (eat until you drop).',
+      description: 'The gastronomic heart of Osaka with neon lights and giant signs. The best place to try street food like Takoyaki.',
       imagePath: 'assets/images/dotonbori.jpg'
   ),
 
-  // ================= CZECH REPUBLIC =================
+  // ================= CZECH REPUBLIC (YENİ EKLENDİ) =================
   Place(
       id: 'cz_pra_1',
       name: 'Charles Bridge',
       city: 'Prague',
       country: 'Czech Republic',
-      description: 'Commissioned by King Charles IV in 1357, this historic stone bridge connects the Old Town with the Lesser Town. Lined with 30 statues of saints, it is an open-air gallery of baroque art. Walking across it at dawn, when the mist rises from the Vltava River and the city spires are silhouetted against the sky, is pure magic.',
+      description: 'A historic stone bridge lined with 30 statues of saints. Walking across at dawn offers magical views of the city spires rising from the mist.',
       imagePath: 'assets/images/charles_bridge.jpg'
   ),
   Place(
@@ -560,8 +590,32 @@ final List<Place> allPlaces = [
       name: 'Prague Castle',
       city: 'Prague',
       country: 'Czech Republic',
-      description: 'Holding the Guinness World Record for the largest ancient castle complex, Prague Castle is a city within a city. It spans over 1000 years of history, from the Gothic St. Vitus Cathedral to the Romanesque Basilica of St. George. The changing of the guard and the stunning views over Prague\'s red rooftops make it an essential visit.',
+      description: 'The largest ancient castle complex in the world. Home to St. Vitus Cathedral, it offers stunning views over Prague\'s red rooftops.',
       imagePath: 'assets/images/prague_castle.jpg'
+  ),
+  Place(
+      id: 'cz_krum_1',
+      name: 'Český Krumlov',
+      city: 'Český Krumlov',
+      country: 'Czech Republic',
+      description: 'A fairytale town in South Bohemia. Its historic center, centered around a spectacular castle and meandering river, is a UNESCO World Heritage site that feels like stepping back into the Middle Ages.',
+      imagePath: 'assets/images/cesky_krumlov.jpg'
+  ),
+  Place(
+      id: 'cz_karl_1',
+      name: 'Karlovy Vary',
+      city: 'Karlovy Vary',
+      country: 'Czech Republic',
+      description: 'A world-famous spa town known for its thermal springs and colorful architecture. Visitors can drink the mineral water from special porcelain cups while strolling along the elegant colonnades.',
+      imagePath: 'assets/images/karlovy_vary.jpg'
+  ),
+  Place(
+      id: 'cz_kut_1',
+      name: 'Sedlec Ossuary',
+      city: 'Kutná Hora',
+      country: 'Czech Republic',
+      description: 'The famous "Bone Church." A small chapel decorated artistically with the bones of over 40,000 people. It includes a massive bone chandelier and is a uniquely macabre yet fascinating historical site.',
+      imagePath: 'assets/images/sedlec_ossuary.jpg'
   ),
 
   // ================= RUSSIA =================
@@ -570,7 +624,7 @@ final List<Place> allPlaces = [
       name: 'Red Square',
       city: 'Moscow',
       country: 'Russia',
-      description: 'Red Square is the heart and soul of Russia, steeped in centuries of history. Surrounded by the Kremlin, the State Historical Museum, and the iconic St. Basil\'s Cathedral, the sheer scale of the square is overwhelming. It has witnessed coronations, military parades, and concerts, serving as the stage for the nation\'s most significant events.',
+      description: 'The heart and soul of Russia, surrounded by the Kremlin and St. Basil\'s. It has witnessed the nation\'s most significant events.',
       imagePath: 'assets/images/red_square.jpg'
   ),
   Place(
@@ -578,7 +632,7 @@ final List<Place> allPlaces = [
       name: 'Saint Basil',
       city: 'Moscow',
       country: 'Russia',
-      description: 'With its colorful, swirl-patterned onion domes, Saint Basil\'s Cathedral looks like a giant confection from a fairy tale. Commissioned by Ivan the Terrible to commemorate the capture of Kazan, it is a unique masterpiece of Russian architecture. The interior is a maze of narrow corridors and small chapels, each decorated with exquisite icons and frescoes.',
+      description: 'With its colorful onion domes, it looks like a fairy tale confection. A unique masterpiece of Russian architecture.',
       imagePath: 'assets/images/saint_basil.jpg'
   ),
   Place(
@@ -586,7 +640,7 @@ final List<Place> allPlaces = [
       name: 'Hermitage',
       city: 'St. Petersburg',
       country: 'Russia',
-      description: 'The State Hermitage Museum is one of the largest and oldest museums in the world, founded by Catherine the Great. Located within the opulent Winter Palace, it houses over 3 million items. From Da Vinci to Rembrandt, and ancient Scythian gold to imperial porcelain, the collection is unrivaled. Walking through the gold-dripping state rooms gives a glimpse into the lavish life of the Tsars.',
+      description: 'Located in the Winter Palace, one of the world\'s largest museums. The gold-dripping rooms offer a glimpse into the lavish life of the Tsars.',
       imagePath: 'assets/images/hermitage.jpg'
   ),
 ];
@@ -794,7 +848,7 @@ class _AuthScreenState extends State<AuthScreen> {
 }
 
 // ---------------------------------------------------------------------------
-// 5. MAIN CONTAINER (NAVIGASYON RENGİ GÜNCELLENDİ)
+// 5. MAIN CONTAINER
 // ---------------------------------------------------------------------------
 
 class MainContainer extends StatefulWidget {
@@ -839,8 +893,7 @@ class _MainContainerState extends State<MainContainer> {
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
-          // İSTEĞİN ÜZERİNE GÜNCELLENDİ: SİYAH DEĞİL, KIRMIZI
-          color: isSelected ? const Color(0xFFE53935) : Colors.transparent,
+          color: isSelected ? const Color(0xFFE53935) : Colors.transparent, // Kırmızı vurgu
           borderRadius: BorderRadius.circular(30),
         ),
         child: Row(
@@ -1252,7 +1305,7 @@ class FavoritesScreen extends StatelessWidget {
 }
 
 // ---------------------------------------------------------------------------
-// 9. ACCOUNT SCREEN (İNTERAKTİF HALE GETİRİLDİ)
+// 9. ACCOUNT SCREEN
 // ---------------------------------------------------------------------------
 class AccountScreen extends StatefulWidget {
   const AccountScreen({super.key});
@@ -1360,7 +1413,7 @@ class _AccountScreenState extends State<AccountScreen> {
 }
 
 // ---------------------------------------------------------------------------
-// 9.1 DETAY AYAR EKRANI (TAMAMEN ÇALIŞIR VE İNTERAKTİF)
+// 9.1 DETAY AYAR EKRANI
 // ---------------------------------------------------------------------------
 class _DetailSettingScreen extends StatefulWidget {
   final String title;
@@ -1566,7 +1619,7 @@ class PlaceDetailScreen extends StatelessWidget {
               ),
             ],
             flexibleSpace: FlexibleSpaceBar(
-              background: Image.asset(place.imagePath, fit: BoxFit.cover),
+              background: Image.asset(place.imagePath, fit: BoxFit.cover, errorBuilder: (c,e,s) => Container(color: Colors.grey.shade300, child: const Center(child: Icon(Icons.image_not_supported, size: 50, color: Colors.grey)))),
             ),
           ),
 
